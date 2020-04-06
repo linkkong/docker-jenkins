@@ -15,7 +15,10 @@ services:
                    - mirrors.jenkins-ci.org
 
     jenkins:
-        image: jenkins/jenkins:lts
+        image: jenkinsci/blueocean:latest
+        # build:
+        #     context: .
+        #     dockerfile: ./jenkins_image/DockerFile
         ports:
             - "2080:8080"
             - "50000:50000"
@@ -24,6 +27,7 @@ services:
         restart: on-failure
         volumes:
             - ./jenkins_home:/var/jenkins_home:cached
+            - /var/run/docker.sock:/var/run/docker.sock
         networks:
             - mirrors
         depends_on:
